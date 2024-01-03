@@ -18,15 +18,19 @@ interface FormData {
 }
 
 const validationSchema = Yup.object().shape({
-  // Define your validation schema using Yup
-  fullName: Yup.string().required('Full Name is required'),
+  fullName: Yup.string().min(8).max(12).required('Full Name is required'),
   emailAddress: Yup.string().email('Invalid email address').required('Email Address is required'),
-  // Add other validation rules for your form fields
-  // ...
+  dateOfBirth: Yup.string().required('Date of Birth is Required'),
+  streetAddress: Yup.string().required('Address is required'),
+  city: Yup.string().required('city is required'),
+  state: Yup.string().required('state is required'),
+  zipCode: Yup.string().required('zipCode is required'),
+  userName: Yup.string().required('userName is required'),
+  password: Yup.string().required('password is required'),
 });
 
 const App: React.FC = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<number>(1);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     emailAddress: '',
@@ -57,7 +61,6 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
       <Formik
         initialValues={formData}
         validationSchema={validationSchema}
@@ -91,7 +94,6 @@ const App: React.FC = () => {
           )}
         </Form>
       </Formik>
-    </div>
   );
 };
 
