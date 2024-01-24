@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 interface Values {
   username: string;
@@ -9,6 +10,7 @@ interface Values {
 }
 
 const Register: React.FC = () => {
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -43,7 +45,7 @@ const Register: React.FC = () => {
           const receivedToken = data?.token;
 
           if (receivedToken) {
-            localStorage.setItem('token', receivedToken);
+            localStorage.setItem('Bebas', receivedToken);
 
             console.log('User registered successfully:', data);
           } else {
@@ -105,6 +107,13 @@ const Register: React.FC = () => {
           className="w-full p-2 bg-green-500 text-white border-none"
         >
           Register
+        </button>
+        <button 
+          onClick={() => navigate('/')}
+          type="submit"
+          className="w-full p-2 bg-blue-500 text-white border-none"
+        >
+          Login
         </button>
       </form>
     </div>

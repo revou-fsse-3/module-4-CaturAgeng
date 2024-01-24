@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const DeleteCategory: React.FC = () => {
   const [categoryId, setCategoryId] = useState<string>('');
-  const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjNzFlNjY5LTM4ZGYtNGRkNy04NDYwLTc4ODc2ZmM0NTNjOSIsImlhdCI6MTY4NjY3MzQzOSwiZXhwIjoxNjg2Njk1MDM5fQ.IKZrgbPGEYULE_G7E8vopOMDmnCLxZaFKuArnXkcL6U'; // Gantilah dengan token yang sesuai
+  const accessToken = localStorage.getItem('Bebas') || ''; 
 
   const handleDeleteCategory = async () => {
     try {
@@ -13,25 +13,25 @@ const DeleteCategory: React.FC = () => {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json', // Sesuaikan dengan tipe konten yang diperlukan
+            'Content-Type': 'application/json', 
           },
         }
       );
 
       if (response.ok) {
         console.log('Category deleted successfully');
-        // Tambahkan logika lain yang diperlukan setelah menghapus kategori
+        
       } else {
         console.error(
           'Failed to delete category:',
           response.status,
           response.statusText
         );
-        // Tambahkan logika lain yang diperlukan jika terjadi kesalahan
+       
       }
     } catch (error) {
       console.error('Error deleting category:', error);
-      // Tambahkan logika lain yang diperlukan jika terjadi kesalahan
+      
     }
   };
 

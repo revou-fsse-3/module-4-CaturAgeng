@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Navigate } from 'react-router-dom';
-import { NavigateProps } from '../NavigateProps/NavigateProps.ts';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -16,6 +16,7 @@ const Login: React.FC = () => {
     }),
     onSubmit: async (values) => {
       try {
+        console.log("call API")
         const response = await fetch('https://mock-api.arikmpt.com/api/user/login', {
           method: 'POST',
           headers: {
@@ -28,15 +29,14 @@ const Login: React.FC = () => {
         });
 
         const data = await response.json();
-        console.log(data);
+        console.log(data?.data.token, "here");
 
         if (data?.data.token) {
-          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('Bebas', data.data.token);
+          
 
-          const navigationProps: NavigateProps = {
-            to: '/list',
-          };
-          Navigate(navigationProps);
+          navigate('/list')
+          console.log("apapun")
         } else {
           console.error('Failed to log in:', response.status, response.statusText);
         }
